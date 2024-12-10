@@ -1,10 +1,26 @@
 def main():
-  
-    file_content = open_file("books/frankenstein.txt")
+    source = "books/frankenstein.txt"
+    file_content = open_file(source)
 
     wordcount = count_words(file_content)
     character_count = count_characters(file_content)
+    character_list = formated_character_count(character_count)
+    print(f"--- Begin report of {"books/frankenstein.txt"} ---")
+    print(f"{wordcount} words found in the documment\n\n")
+    for item in character_list:
+        print(f"The {item["character"]} character was found {item["num"]} times")
+    print("--- End report ---")
 
+def formated_character_count(character_count):
+    formatted_list = []
+    for key, value in character_count.items():
+        formatted_list.append({"character": key, "num": value})
+        #print(f"{key} {value}")
+    formatted_list.sort(reverse=True, key=sort_on)
+    return formatted_list
+
+def sort_on(dict):
+    return dict["num"]
 
 
 def count_characters(fille_content):
